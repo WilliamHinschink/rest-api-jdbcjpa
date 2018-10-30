@@ -14,7 +14,6 @@
       <property name="hibernate.flushMode" value="FLUSH_AUTO" />
       <property name="hibernate.show_sql" value="true" />
       <property name="hibernate.format_sql" value="true" />
-
       <!--  atualiza o banco, gera as tabelas se for preciso -->
       <!--<property name="hibernate.hbm2ddl.auto" value="create-drop" />-->
       <property name="hibernate.hbm2ddl.auto" value="update" />

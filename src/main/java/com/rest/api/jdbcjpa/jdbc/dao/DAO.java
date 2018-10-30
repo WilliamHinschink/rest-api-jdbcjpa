@@ -165,16 +165,16 @@ public abstract class DAO<T extends Entity> {
     @SuppressWarnings("unchecked")
     public List<T> findAll() {
         List<T> list = new ArrayList<>();
-        Connection connection = null;
+        Connection conexao;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
             String sql = String.format(FORMAT_FIND_ALL, tableName);
-            connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(sql);
+            conexao = dataSource.getConnection();
+            preparedStatement = conexao.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
-            Object object = null;
-            String columnLabel = "";
+            Object object;
+            String columnLabel;
             // percorre os registros retornados do banco de dados.
             while (resultSet.next()) {
                 object = entityClass.newInstance();
@@ -194,6 +194,8 @@ public abstract class DAO<T extends Entity> {
         } catch (SQLException | SecurityException | NoSuchFieldException |
                 IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
+        } finally {
+            close(preparedStatement, resultSet);
         }
         return list;
     }
